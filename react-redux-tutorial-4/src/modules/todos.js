@@ -12,11 +12,9 @@ const REMOVE = "todos/REMOVE";
 export const changeInput = createAction(CHANGE_INPUT, (input) => input);
 let id = 3;
 export const insert = createAction(INSERT, (text) => ({
-  todo: {
-    id: id++,
-    text,
-    done: false,
-  },
+  id: id++,
+  text,
+  done: false,
 }));
 
 export const toggle = createAction(TOGGLE, (id) => id);
@@ -56,10 +54,11 @@ const todos = handleActions(
         const todo = draft.todos.find((todo) => todo.id === id);
         todo.done = !todo.done;
       }),
-    [REMOVE]: (state, { payload: id }) => produce(state, (draft) => {
-      const index = draft.todos.findIndex(todo => todo.id === id);
-      draft.todos.splice(index, 1)
-    }),
+    [REMOVE]: (state, { payload: id }) =>
+      produce(state, (draft) => {
+        const index = draft.todos.findIndex((todo) => todo.id === id);
+        draft.todos.splice(index, 1);
+      }),
   },
   initialState
 );
